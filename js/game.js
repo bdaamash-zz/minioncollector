@@ -238,6 +238,13 @@ function game() {
                   counterSpan.innerHTML = ' '+counter;                  
 
               }
+              minion.touchstart = function(){
+                  counter++;
+                  stage.removeChild(this);
+                  
+                  counterSpan.innerHTML = ' '+counter;                  
+
+              }
           }
  
     renderer.render(stage);  
