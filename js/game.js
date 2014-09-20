@@ -130,7 +130,7 @@ var stage1 = new PIXI.Stage(0xFFFFFF);
 var stage = new PIXI.Stage(0xFFFFFF);
 
 // Total Minions in farm
-var totalMinions = 50;
+var totalMinions = 100;
 
 // Game COFIGS
 var startGame = false;
