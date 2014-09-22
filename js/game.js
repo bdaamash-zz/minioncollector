@@ -1,3 +1,23 @@
+// Configs
+var counter = 0;
+var countdown_timer;
+
+// Total Minions in farm
+var totalMinions = 100;
+
+// Game COFIGS
+var startGame = true;
+var gameSpeed = 5; // starting slow
+
+
+var minionsKilled = 0;
+
+var rankingMessage;
+
+
+
+
+
 // Elements on the page;
 var overlay = document.createElement('DIV');
 overlay.style.position = 'absolute';
@@ -20,18 +40,42 @@ modal.style.top = '50%';
 modal.style.left = '50%';
 modal.style.background = '#f1c40f';
 modal.style.zIndex = '11';
-modal.style.width = '300px';
-modal.style.height = '200px';
+modal.style.width = '800px';
+modal.style.height = '400px';
 modal.style.borderRadius = '5px';
-modal.style.marginTop = '-100px';
-modal.style.marginLeft = '-150px';
+modal.style.marginTop = '-200px';
+modal.style.marginLeft = '-400px';
 modal.style.fontFamily = 'Open Sans';
-modal.style.lineHeight = '200px';
 modal.style.padding = '10px';
 modal.style.visibility = 'hidden';
 
 
-modal.innerHTML = 'This is a Demo, Please refresh the page to play again';
+var gameOverTitle = document.createElement('h2');
+gameOverTitle.style.fontFamily = 'Open Sans';
+gameOverTitle.style.fontSize = '30px';
+gameOverTitle.textContent = 'Game Over';
+gameOverTitle.style.textAlign = 'center';
+
+var rankingText = document.createElement('h4');
+rankingText.style.color = "#000";
+rankingText.style.fontSize = '60px';
+rankingText.style.margin = '0';
+rankingText.style.fontWeight = 'bold';
+rankingText.style.textAlign = 'center';
+
+
+var collectedMinionsText = document.createElement('h4');
+collectedMinionsText.style.color = "#fff";
+collectedMinionsText.style.fontSize = '80px';
+collectedMinionsText.style.margin = '0';
+collectedMinionsText.style.fontWeight = 'bold';
+collectedMinionsText.style.textAlign = 'center';
+
+
+
+modal.appendChild(gameOverTitle);
+modal.appendChild(rankingText);
+modal.appendChild(collectedMinionsText);
 
 document.body.appendChild(modal);    
 
@@ -90,32 +134,30 @@ document.body.appendChild(countdownDiv);
     
 // Creating Timer
 
-var count=30;
+var seconds=30;
 
-var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
+var timeCounter=setInterval(timer, 1000); //1000 will  run it every 1 second
 
 function timer()
 {
-  count=count-1;
-  if (count <= 0)
+  seconds=seconds-1;
+  if (seconds <= 0)
   {
-     count = 0;
-     document.getElementById("countdown_timer").innerHTML=count + " secs";
-     clearInterval(counter);
+     seconds = 0;
+     document.getElementById("countdown_timer").innerHTML=seconds + " secs";
+     clearInterval(timeCounter);
      //counter ended
      overlay.style.visibility = 'visible';
      modal.style.visibility = 'visible';
+     startGame = false
      return;
   }
 
-   document.getElementById("countdown_timer").innerHTML=count + " secs"; // watch for spelling
+   document.getElementById("countdown_timer").innerHTML=seconds + " secs"; // watch for spelling
 
 }
 
 
-// Configs
-var counter = 0;
-var countdown_timer;
 
 
 
@@ -129,14 +171,6 @@ document.body.appendChild(renderer.view);
 var stage1 = new PIXI.Stage(0xFFFFFF);
 var stage = new PIXI.Stage(0xFFFFFF);
 
-// Total Minions in farm
-var totalMinions = 100;
-
-// Game COFIGS
-var startGame = false;
-var gameSpeed = 5; // starting slow
-
-var minionsKilled = 0;
 
 
 
@@ -155,6 +189,7 @@ button.click = function () {
     stage.removeChild(this);
     requestAnimationFrame(game);
 }
+
 
 //uncomment to add start button
 //stage.addChild(button);
@@ -215,40 +250,71 @@ requestAnimationFrame(game);
 
 
 function game() {
-    
-        // iterate throught the minion array and update the posiotion, direction and speed of each mionion
-        for (var i = 0; i < minionsArray.length; i++)
-         {
-              var minion = minionsArray[i];
-              minion.direction += minion.turningSpeed * 0.01;
-              minion.position.x += Math.sin(minion.direction) * minion.speed;
-              minion.position.y += Math.cos(minion.direction) * minion.speed;
-              minion.rotation = -minion.direction - Math.PI/2;
-              // wrap the minion by testing there bounds..
-              if(minion.position.x < minionBounds.x)minion.position.x += minionBounds.width;
-              else if(minion.position.x > minionBounds.x + minionBounds. width)minion.position.x -= minionBounds.width
-              if(minion.position.y < minionBounds.y)minion.position.y += minionBounds.height;
-              else if(minion.position.y > minionBounds.y + minionBounds. height)minion.position.y -= minionBounds.height
+        // change game speed based on time
+        if(startGame){
+            var fasterBy = 1;
 
-              minion.interactive= true;
-              minion.click = function(){
-                  counter++;
-                  stage.removeChild(this);
-                  
-                  counterSpan.innerHTML = ' '+counter;                  
+            if ( seconds < 20){
+                fasterBy = 1.5;
+            } if (seconds < 15) {
+                fasterBy = 2.3;
+            }
 
+            // iterate throught the minion array and update the posiotion, direction and speed of each mionion
+            for (var i = 0; i < minionsArray.length; i++)
+             {
+                  var minion = minionsArray[i];
+                  minion.direction += minion.turningSpeed * 0.03;
+                  minion.position.x += Math.sin(minion.direction) * minion.speed * fasterBy;
+                  minion.position.y += Math.cos(minion.direction) * minion.speed * fasterBy;
+                  minion.rotation = -minion.direction - Math.PI/2;
+                  // wrap the minion by testing there bounds..
+                  if(minion.position.x < minionBounds.x)minion.position.x += minionBounds.width;
+                  else if(minion.position.x > minionBounds.x + minionBounds. width)minion.position.x -= minionBounds.width
+                  if(minion.position.y < minionBounds.y)minion.position.y += minionBounds.height;
+                  else if(minion.position.y > minionBounds.y + minionBounds. height)minion.position.y -= minionBounds.height
+
+                  minion.interactive= true;
+                  minion.click = function(){
+                      counter++;
+                      stage.removeChild(this);
+
+                      counterSpan.innerHTML = ' '+counter;                  
+
+                  }
+                  minion.touchstart = function(){
+                      counter++;
+                      stage.removeChild(this);
+
+                      counterSpan.innerHTML = ' '+counter;                  
+
+                  }
               }
-              minion.touchstart = function(){
-                  counter++;
-                  stage.removeChild(this);
-                  
-                  counterSpan.innerHTML = ' '+counter;                  
-
-              }
-          }
- 
-    renderer.render(stage);  
-    requestAnimationFrame(game);
-
+            
+            if(counter == 0){
+                rankingMessage = 'You gotta try at least once!';
+            }
+            if(counter > 0 && counter <= 20){
+                rankingMessage = 'Not bad for a begginer!';
+            }
+            if(counter > 20 && counter <= 40){
+                rankingMessage = 'There is more clicking inside of you!';
+            }
+            if(counter >40 && counter <= 60){
+                rankingMessage = 'You are a minion lover!';
+            }
+            if(counter > 60 && counter <= 80){
+                rankingMessage = 'Are you seriously taking all those minions home? !';
+            }
+            if( counter > 80 && counter <= 100){
+                rankingMessage = 'Okay! How are your fingers doing?';
+            }
+            
+            rankingText.textContent = rankingMessage;
+            collectedMinionsText.textContent = "Collected: " + counter;
+            
+            renderer.render(stage);  
+            requestAnimationFrame(game);
+    }
 }
 
