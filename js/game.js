@@ -58,7 +58,7 @@ gameOverTitle.style.textAlign = 'center';
 
 var rankingText = document.createElement('h4');
 rankingText.style.color = "#000";
-rankingText.style.fontSize = '60px';
+rankingText.style.fontSize = '40px';
 rankingText.style.margin = '0';
 rankingText.style.fontWeight = 'bold';
 rankingText.style.textAlign = 'center';
@@ -66,17 +66,35 @@ rankingText.style.textAlign = 'center';
 
 var collectedMinionsText = document.createElement('h4');
 collectedMinionsText.style.color = "#fff";
-collectedMinionsText.style.fontSize = '80px';
+collectedMinionsText.style.fontSize = '60px';
 collectedMinionsText.style.margin = '0';
 collectedMinionsText.style.fontWeight = 'bold';
 collectedMinionsText.style.textAlign = 'center';
+
+
+var playAgainButton = document.createElement('h4');
+playAgainButton.style.color = "#fff";
+playAgainButton.style.fontSize = '30px';
+playAgainButton.style.marginTop = '40px';
+playAgainButton.style.padding = '10px';
+playAgainButton.style.fontWeight = 'bold';
+playAgainButton.style.textAlign = 'center';
+playAgainButton.style.background = 'blue';
+playAgainButton.style.cursor = 'pointer';
+playAgainButton.style.width = '200px';
+playAgainButton.style.left = '50%';
+playAgainButton.style.marginLeft = '-100px';
+playAgainButton.style.position = 'relative';
+playAgainButton.textContent = "Play Again";
+
+playAgainButton.addEventListener('click', function(){ location.reload(); });
 
 
 
 modal.appendChild(gameOverTitle);
 modal.appendChild(rankingText);
 modal.appendChild(collectedMinionsText);
-
+modal.appendChild(playAgainButton);
 document.body.appendChild(modal);    
 
 
