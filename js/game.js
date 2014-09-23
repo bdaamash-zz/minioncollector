@@ -1,3 +1,5 @@
+// Fruits Game
+
 // Configs
 var counter = 0;
 var countdown_timer;
