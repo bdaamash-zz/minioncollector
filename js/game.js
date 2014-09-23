@@ -42,7 +42,7 @@ modal.style.background = '#f1c40f';
 modal.style.zIndex = '11';
 modal.style.width = '800px';
 modal.style.height = '400px';
-modal.style.borderRadius = '5px';
+modal.style.borderRadius = '10px';
 modal.style.marginTop = '-200px';
 modal.style.marginLeft = '-400px';
 modal.style.fontFamily = 'Open Sans';
@@ -52,7 +52,9 @@ modal.style.visibility = 'hidden';
 
 var gameOverTitle = document.createElement('h2');
 gameOverTitle.style.fontFamily = 'Open Sans';
-gameOverTitle.style.fontSize = '30px';
+gameOverTitle.style.fontSize = '40px';
+gameOverTitle.style.color = '#000';
+gameOverTitle.style.marginBottom = '50px';
 gameOverTitle.textContent = 'Game Over';
 gameOverTitle.style.textAlign = 'center';
 
@@ -104,7 +106,9 @@ var counterDiv = document.createElement('DIV');
 counterDiv.style.position = 'absolute';
 counterDiv.style.bottom = '30px';
 counterDiv.style.left = '60px';
-counterDiv.style.background = '#ccc';
+counterDiv.style.color = '#f1c40f';
+counterDiv.style.background = '#000';
+counterDiv.style.borderRadius = '10px';
 counterDiv.style.padding = '10px';
 counterDiv.style.fontFamily = 'Arial';
 counterDiv.style.fontSize = '24px';
@@ -126,13 +130,15 @@ document.body.appendChild(counterDiv);
 var countdownDiv = document.createElement('DIV');
 countdownDiv.style.position = 'absolute';
 countdownDiv.style.top = '30px';
-countdownDiv.style.right = '60px';
-countdownDiv.style.background = '#ccc';
+countdownDiv.style.right = '30px';
+countdownDiv.style.color = '#f1c40f';
+countdownDiv.style.background = '#000';
+countdownDiv.style.borderRadius = '10px';
 countdownDiv.style.padding = '10px';
 countdownDiv.style.fontFamily = 'Arial';
 countdownDiv.style.fontSize = '24px';
 countdownDiv.style.fontWeight = 'bold';
-countdownDiv.id = ''
+
 
 countdownDiv.innerHTML = 'Time Left: ';
 
